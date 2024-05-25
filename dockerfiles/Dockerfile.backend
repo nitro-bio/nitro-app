@@ -2,9 +2,16 @@
 FROM python:3.11-slim
 
 WORKDIR /usr/src/app
+# Install npm and node
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+ADD --chmod=755 https://astral.sh/uv/install.sh /install.sh
+RUN /install.sh && rm /install.sh
 
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN /root/.cargo/bin/uv pip install --system --no-cache -r requirements.txt
 
 # Run app.py when the container launches
 CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]

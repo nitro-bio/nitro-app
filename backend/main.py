@@ -2,6 +2,8 @@ import sqlite3
 
 from fastapi import FastAPI
 from starlette.responses import FileResponse
+from pydantic import BaseModel
+from typing import List
 
 app = FastAPI()
 
@@ -18,13 +20,33 @@ async def static_assets(file_path: str):
     return FileResponse(f"static/assets/{file_path}")
 
 
+# create pydanctic model for user
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+
+
 @app.get("/api/users")
-async def fetch_users():
+async def fetch_users(foo: str) -> List[User]:
     # get users from db
     conn = get_db_connection()
     with conn:
-        users = conn.execute("SELECT * FROM Users").fetchall()
-        return {"users": users}
+        raw = conn.execute("SELECT * FROM Users").fetchall()
+        parsed = [User(id=id, name=name, email=email) for id, name, email in raw]
+        return parsed
+
+
+@app.post("/api/users")
+async def upsert_users(user: User):
+    # get users from db
+    conn = get_db_connection()
+    with conn:
+        conn.execute(
+            "INSERT OR REPLACE INTO Users (id, name, email) VALUES (?, ?, ?)",
+            (user.id, user.name, user.email),
+        )
+        return {"status": "ok"}
 
 
 conn = None

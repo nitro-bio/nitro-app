@@ -1,4 +1,4 @@
-# Micro-App
+# Full-App
 
 [![Backend Lint](https://github.com/nitro-bio/micro-app/actions/workflows/backend_lint.yml/badge.svg)](https://github.com/nitro-bio/micro-app/actions/workflows/backend_lint.yml)
 

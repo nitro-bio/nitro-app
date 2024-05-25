@@ -9,13 +9,26 @@
     "build": "pnpm lint && vite build",
     "format": "prettier --config package.json '**/*.{cjs,js,jsx,ts,tsx,md,json}' --check ",
     "format:fix": "prettier --config package.json '**/*.{cjs,js,jsx,ts,tsx,md,json}' --write",
+    "format:watch": "nodemon --watch . --ext js,jsx,ts,tsx,json,css,scss,html --exec pnpm format:fix",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.4.2",
+    "@ninjha01/nitro-ui": "^0.1.59",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.13",
+    "@tanstack/react-query": "^5.38.0",
+    "daisyui": "^4.11.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.5",
+    "react-query": "^3.39.3",
+    "wretch": "^2.8.1",
+    "zod": "^3.23.8",
+    "zod-validation-error": "^3.3.0"
   },
   "devDependencies": {
+    "@types/node": "^20.12.12",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -25,6 +38,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "nodemon": "^3.1.1",
     "postcss": "^8.4.32",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.10",
